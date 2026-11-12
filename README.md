@@ -1,15 +1,34 @@
 # E-commerce Sales Performance Analysis
 
-An analysis of monthly product-category sales in a saved export from Google's synthetic `thelook_ecommerce` BigQuery dataset. It answers: How did recorded revenue change over time? Which categories contributed most? Which categories drove the latest month-to-month change?
+**A simple dashboard and analysis of monthly product-category sales.** Built with Python, pandas, Streamlit, and a saved export from Google's synthetic `thelook_ecommerce` BigQuery dataset.
 
-## Repository contents
+![Recorded revenue trend and five leading product categories](assets/sales_preview.png)
 
-- `ecommerce_master.csv`: saved aggregated data, with 2,175 month-category rows from January 2019 through September 2026.
-- `sales_analysis.py`: data checks and reusable monthly and category calculations.
-- `sales_performance_analysis.ipynb`: documented analysis, with a title and short explanation before every code cell.
-- `app.py`: interactive local Streamlit dashboard with a category filter and downloadable monthly summary.
-- `monthly_category_sales.sql`: **proposed** BigQuery query for a new export. It has not been verified against the saved CSV; the original query and source snapshot are unavailable.
-- `category_summary.csv`, `monthly_sales_summary.csv`, `kpi_summary.csv`: older derived exports. The Python analysis and dashboard define the current metrics.
+### At a glance
+
+| Question | What the saved data shows |
+| --- | --- |
+| How much revenue is recorded? | **2,691,096.65** across 93 months and 26 categories |
+| Which category leads? | **Outerwear & Coats**, with **325,754.89** (12.1% of recorded revenue) |
+| What changed recently? | September 2026 revenue is **81.4%** above August; the cause is unverified |
+
+The chart is generated from the checked-in CSV with `python generate_preview.py`.
+
+## Explore the project
+
+| Start here | What you will find |
+| --- | --- |
+| [Interactive dashboard](app.py) | Filter categories, inspect monthly revenue, and download a monthly summary |
+| [Guided analysis notebook](sales_performance_analysis.ipynb) | Run the calculations step by step, with a title and explanation before each code cell |
+| [Analysis functions](sales_analysis.py) | Validate the export and calculate monthly and category summaries |
+| [Saved source data](ecommerce_master.csv) | The month-by-category table used throughout the project |
+| [Proposed BigQuery query](monthly_category_sales.sql) | A starting point for a new export; it is not verified to reproduce the saved CSV |
+
+## Questions answered
+
+1. How did recorded revenue change over time?
+2. Which categories contributed most to recorded revenue?
+3. Which categories drove the latest month-to-month change?
 
 ## Data and metric definitions
 
@@ -19,24 +38,21 @@ The data is synthetic and can change when the upstream dataset is regenerated. R
 
 ## Run locally
 
-Create a Python environment in the repository root, install `requirements.txt`, then run:
+Create a Python environment in the repository root and install the dependencies, then run:
 
 ```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
 python sales_analysis.py
 streamlit run app.py
 ```
 
 Open `sales_performance_analysis.ipynb` in VS Code or Jupyter and run cells from top to bottom. It reads the local CSV, so cloud credentials are unnecessary. To refresh from BigQuery, review the proposed SQL and record its run date and filters. An exact match with the historical CSV is not expected.
 
-## Findings from the saved snapshot
+## Interpreting the results
 
-- Recorded revenue totals **2,691,096.65** across 93 months and 26 categories.
-- **Outerwear & Coats** leads recorded revenue at **325,754.89**, about **12.1%** of the total; **Jeans** follows at **314,198.92**.
-- September 2026 recorded revenue is **210,289.22**, up **81.4%** from August. Investigate the underlying transactions and data generation before giving this jump a business explanation.
-
-## Business use
-
-The dashboard helps an analyst spot unusual months and choose categories to examine. A real business would reconcile transactions, inspect returns and margins, and check inventory or campaigns before changing promotions or purchasing.
+The latest recorded month has a large revenue jump. Use it as a lead for further investigation, not as evidence that a particular campaign worked. In a real business, check the underlying transactions, returns, margins, inventory, and any changes to data generation before making decisions.
 
 ## Source and scope
 
