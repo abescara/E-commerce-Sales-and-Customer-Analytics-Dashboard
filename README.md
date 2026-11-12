@@ -22,6 +22,7 @@ The chart is generated from the checked-in CSV with `python generate_preview.py`
 | [Guided analysis notebook](sales_performance_analysis.ipynb) | Run the calculations step by step, with a title and explanation before each code cell |
 | [Analysis functions](sales_analysis.py) | Validate the export and calculate monthly and category summaries |
 | [Saved source data](ecommerce_master.csv) | The month-by-category table used throughout the project |
+| [Data guide](DATA_GUIDE.md) | Column definitions, metric rules, and known limitations |
 | [Proposed BigQuery query](monthly_category_sales.sql) | A starting point for a new export; it is not verified to reproduce the saved CSV |
 
 ## Questions answered
